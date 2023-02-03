@@ -19,3 +19,9 @@ public enum PovState
     Front,  //X
     Side    //Z
 }
+public enum LinkState
+{
+    RootPort,
+    DesignatedPort,
+    Blocking
+}

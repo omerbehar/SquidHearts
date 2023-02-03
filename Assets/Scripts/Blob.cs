@@ -1,94 +1,116 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Blob : MonoBehaviour
+public class Blob : Connectable
 {
-    public Vector3Int blobGridPosition = new Vector3Int(50, 50, 50);
+    public Vector3Int GridPosition { get; private set; } = new Vector3Int(50, 50, 50);
+
     [SerializeField] private List<Vector3Int> blobRelativeParts = new();
-    private bool isMoving = true;
+    private bool isMovable = true;
+    private List<Link> links;
 
     public void MoveBlobOnTick()
     {
-        if (!isMoving)
+        if (!isMovable)
         {
             EventManager.Tick.RemoveListener(MoveBlobOnTick);
             return;
         }
-        if (OnMove(Vector3Int.up))
-        {
-            transform.position += Vector3.up * Grid.GridUnit;
-            blobGridPosition += Vector3Int.up;
-        }
+        MoveBlobOnInput(new Vector3Int(0, 1, 0));
     }
-    public void RotateBlobOnInput(Vector3Int axis)
+    public void RotateBlobOnInput(Vector3Int directionVector)
     {
         List<Vector3Int> newParts = new();
         foreach (Vector3Int part in blobRelativeParts)
         {
             Vector3Int newPart;
-            if (axis.z != 0)
+            if (directionVector.z != 0)
             {
-                newPart = (new Vector3Int(part.y * axis.x, -part.z * axis.x, part.z));
+                newPart = (new Vector3Int(part.y * directionVector.x, -part.z * directionVector.x, part.z));
             }
-            else if (axis.x != 0)
+            else if (directionVector.x != 0)
             {
-                newPart = (new Vector3Int(part.x, -part.z * axis.x, part.y * axis.x));
+                newPart = (new Vector3Int(part.x, -part.z * directionVector.x, part.y * directionVector.x));
             }
             else { return; }
-            switch (Grid.IsCollide(newPart+ blobGridPosition))
-            {
-                case GridElemnt.Blob:
-                case GridElemnt.Cage:
-                    EventManager.CantRotate.Invoke();
-                    print("CantRotate");
-                    return;
-            }
-            newParts.Add(newPart);
+            if (CanRotatePart(newPart))
+                newParts.Add(newPart);
         }
-        transform.eulerAngles += axis * 90;
+        transform.eulerAngles += directionVector * 90;
         blobRelativeParts = newParts;
     }
-    public void MoveBlobOnInput(Vector3Int axis)
+    public void MoveBlobOnInput(Vector3Int directionVector)
     {
-        if (OnMove(new Vector3Int(axis.x, 0, axis.z)))
+        if (!isMovable)
         {
-            transform.position += (Vector3)axis * Grid.GridUnit;
-            blobGridPosition += axis;
+            EventManager.Tick.RemoveListener(MoveBlobOnTick);
+            return;
+        }
+        if (CanMove(new Vector3Int(directionVector.x, 0, directionVector.z)))
+        {
+            transform.position += (Vector3)directionVector * Grid.GridUnit;
+            GridPosition += directionVector;
         }
         else
         {
             EventManager.Tick.RemoveListener(MoveBlobOnTick);
         }
     }
-    private bool OnMove(Vector3Int direction)
+
+   
+    private bool CanRotatePart(Vector3Int newPart)
     {
-        bool isMove = true;
+        IGridElement collidedElement = Grid.IsCollide(newPart + GridPosition);
+        if (collidedElement != null)
+            switch (collidedElement.ElementType)
+            {
+                case GridElement.Blob:
+                case GridElement.Cage:
+                    EventManager.CantRotate.Invoke();
+                    print("CantRotate");
+                    return false; ;
+            }
+        return true;
+    }
+    private bool CanMove(Vector3Int direction)
+    {
+        bool willCollide = false;
         foreach (Vector3Int part in blobRelativeParts)
         {
-            switch (Grid.IsCollide(part + direction+ blobGridPosition))
-            {
-                case GridElemnt.Blob:
-                    isMove = false;
-                    break;
-                case GridElemnt.Cage:
-                    isMove = false;
-                    break;
-            }
+            IGridElement collidedElement = Grid.IsCollide(part + direction + GridPosition);
+            if (collidedElement != null)
+                switch (collidedElement.ElementType)
+                {
+                    case GridElement.Blob:
+                    case GridElement.Cage:
+                        willCollide = true;
+                        ConnectToElement(collidedElement);
+                        break;
+                }
         }
-        if(!isMove)
+        UpdateNewConnections();
+        if (willCollide)
         {
-            isMoving = false;
+            isMovable = false;
             foreach (Vector3Int part in blobRelativeParts)
             {
-                Grid.AddBlobPart(part + blobGridPosition);
+                Grid.AddBlobPart(part + GridPosition, this);
             }
         }
-        return isMove;
+        return isMovable;
     }
+
 
     private void Start()
     {
         EventManager.Tick.AddListener(MoveBlobOnTick);
+    }
+
+    public void AddLink(IGridElement element, LinkState state)
+    {
+        throw new NotImplementedException();
     }
 }
