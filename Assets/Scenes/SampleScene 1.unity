@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d68b261daeb484a8a597da3bd87c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tickTime: 50
+  povState: 0
+  zCamera: {fileID: 0}
+  xCamera: {fileID: 0}
 --- !u!4 &149459333
 Transform:
   m_ObjectHideFlags: 0
@@ -762,7 +766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7303eef32b101d488dab3b23c550a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blobGridPosition: {x: 50, y: 50, z: 50}
   blobRelativeParts:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
