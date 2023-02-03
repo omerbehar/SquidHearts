@@ -40,10 +40,10 @@ public class Player : MonoBehaviour
                 switch (direction)
                 {
                     case Direction.Left:
-                        currentBlob.RotateBlobOnInput(Vector3Int.back);
+                        currentBlob.RotateBlobOnInput(Vector3Int.forward);
                         break;
                     case Direction.Right:
-                        currentBlob.RotateBlobOnInput(Vector3Int.forward);
+                        currentBlob.RotateBlobOnInput(Vector3Int.back);
                         break;
                 }
                 break;
