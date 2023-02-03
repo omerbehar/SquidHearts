@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Connectable : MonoBehaviour, IGridElement
 {
     public GridElement ElementType { get; protected set; }
-    private List<Link> links;
+    private List<Link> links = new List<Link>();
 
     public int GetHopCount()
     {
@@ -36,6 +36,7 @@ public abstract class Connectable : MonoBehaviour, IGridElement
                 rootIndex = i;
             }
         }
+        if (rootIndex == -1) return;
         links[rootIndex].linkState = LinkState.RootPort;
         foreach (Link link in links)
         {
