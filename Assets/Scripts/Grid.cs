@@ -6,6 +6,7 @@ public static class Grid
 
     private static IGridElement[,,] grid = new IGridElement[100, 100, 100];
     public static IGridElement IsCollide(Vector3Int position)
+
     {
         return grid[position.x, position.y, position.z];
     }
@@ -16,4 +17,3 @@ public static class Grid
         Debug.Log(partPositio);
     }
 }
-public enum GridElement { Empty, Blob, Cage};
