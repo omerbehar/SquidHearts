@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ElementType>k__BackingField: 1
-  <GridPosition>k__BackingField: {x: 7, y: 1, z: 7}
+  <GridPosition>k__BackingField: {x: 7, y: 0, z: 7}
   blobRelativeParts:
   - {x: 0, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}

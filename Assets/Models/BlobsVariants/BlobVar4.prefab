@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963003533747385405, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
       propertyPath: <GridPosition>k__BackingField.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7963003533747385405, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
       propertyPath: <GridPosition>k__BackingField.z
@@ -114,6 +114,10 @@ PrefabInstance:
     - target: {fileID: 9068206625803935883, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068206625803935883, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9068206625803935883, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
       propertyPath: m_LocalPosition.x
