@@ -63,6 +63,9 @@ public class Player : MonoBehaviour
                     case Direction.Right:
                         currentBlob.MoveBlobOnInput(Vector3Int.forward);
                         break;
+                    case Direction.Up:
+                        currentBlob.MoveBlobOnInput(Vector3Int.up);
+                        break;
                 }
 
                 break;
@@ -76,7 +79,6 @@ public class Player : MonoBehaviour
                         currentBlob.MoveBlobOnInput(Vector3Int.right);
                         break;
                 }
-
                 break;
         }
     }
