@@ -8,7 +8,6 @@ public class Blob : MonoBehaviour
     private bool isMoving = true;
     public List<Vector3Int> blobRelativeParts = new();
 
-    [ContextMenu ("MoveUp")]
     public void MoveBlobOnTick()
     {
         if (!isMoving)
@@ -21,11 +20,6 @@ public class Blob : MonoBehaviour
             transform.position += Vector3.up * Grid.GridUnit;
             blobGridPosition += Vector3Int.up;
         }
-    }
-    [ContextMenu ("Rotate")]
-    public void Rotate()
-    {
-        RotateBlobOnInput(Vector3Int.right);
     }
     public void RotateBlobOnInput(Vector3Int axis)
     {
@@ -54,11 +48,6 @@ public class Blob : MonoBehaviour
         }
         transform.eulerAngles += axis * 90;
         blobRelativeParts = newParts;
-    }
-    [ContextMenu("MoveSide")]
-    public void Move()
-    {
-        MoveBlobOnInput(Vector3Int.right);
     }
     public void MoveBlobOnInput(Vector3Int axis)
     {
@@ -98,4 +87,8 @@ public class Blob : MonoBehaviour
         return isMove;
     }
 
+    private void Start()
+    {
+        EventManager.Tick.AddListener(MoveBlobOnTick);
+    }
 }
