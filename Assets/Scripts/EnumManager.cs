@@ -16,9 +16,18 @@ public enum PovState
     Side    //Z
 }
 
+public enum LinkState
+{
+    RootPort,
+    DesignatedPort,
+    Blocking
+}
+
+
 public enum GridElement
 {
     Empty, 
     Blob, 
     Cage
 };
+
