@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,8 +37,8 @@ public class Blob : MonoBehaviour
             else { return; }
             switch (Grid.IsCollide(newPart+ blobGridPosition))
             {
-                case GridElemnt.Blob:
-                case GridElemnt.Cage:
+                case GridElement.Blob:
+                case GridElement.Cage:
                     EventManager.CantRotate.Invoke();
                     print("CantRotate");
                     return;
@@ -68,10 +67,10 @@ public class Blob : MonoBehaviour
         {
             switch (Grid.IsCollide(part + direction+ blobGridPosition))
             {
-                case GridElemnt.Blob:
+                case GridElement.Blob:
                     isMove = false;
                     break;
-                case GridElemnt.Cage:
+                case GridElement.Cage:
                     isMove = false;
                     break;
             }

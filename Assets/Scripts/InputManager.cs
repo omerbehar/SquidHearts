@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private KeyCode moveLeftKey, moveRightKey, rotateLeftKey, rotateRightKey;
 
-    [SerializeField] private KeyCode changePovKey, goto3DKey;
+    [SerializeField] private KeyCode changePovKey = KeyCode.LeftShift, goto3DKey = KeyCode.Space;
 
     [SerializeField] private float holdTimeToSecondMovement, holdTimeToThirdMovement;
 
@@ -16,7 +12,7 @@ public class InputManager : MonoBehaviour
 
     private int moveCount;
     private static InputManager Instance { get; set; }
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
@@ -92,7 +88,7 @@ public class InputManager : MonoBehaviour
         switch (movementType)
         {
             case MovementType.Move:
-                EventManager.movementClicked.Invoke(direction);
+                EventManager.movementInput.Invoke(direction);
                 break;
             case MovementType.Rotate:
                 EventManager.rotateClicked.Invoke(direction);
