@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,13 +17,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         InitEventListeners();
-        //InitCameras();
-    }
-
-    private void InitCameras()
-    {
-        zCamera.enabled = false;
-        xCamera.enabled = true;
     }
 
     void Update()
@@ -70,5 +61,4 @@ public class GameManager : MonoBehaviour
             timeFromLastTick += Time.deltaTime;
         }
     }
-
 }

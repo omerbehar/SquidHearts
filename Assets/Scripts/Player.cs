@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,15 +8,12 @@ public class Player : MonoBehaviour
     {
         InitEventListeners();
     }
-
     private void InitEventListeners()
     {
         RemoveEventListeners();
         EventManager.movementInput.AddListener(OnMovementClicked);
         EventManager.rotateClicked.AddListener(OnRotateClicked);
     }
-
-
     private void OnRotateClicked(Direction direction)
     {
         switch (GameManager.Instance.povState)
@@ -79,20 +73,9 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-
     private void RemoveEventListeners()
     {
         EventManager.movementInput.RemoveListener(OnMovementClicked);
         EventManager.rotateClicked.RemoveListener(OnRotateClicked);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
