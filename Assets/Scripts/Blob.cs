@@ -87,15 +87,15 @@ public class Blob : Connectable
             transform.position += (Vector3)directionVector * Grid.GridUnit;
             GridPosition += directionVector;
         }
-        else
-        {
-            EventManager.Tick.RemoveListener(MoveBlobOnTick);
-        }
+        // else
+        // {
+        //     EventManager.Tick.RemoveListener(MoveBlobOnTick);
+        // }
     }
 
     private bool CanRotatePart(Vector3Int newPart)
     {
-        IGridElement collidedElement = Grid.IsCollide(newPart + GridPosition);
+        IGridElement collidedElement = Grid.CanMoveTo(newPart + GridPosition);
         if (collidedElement != null)
             switch (collidedElement.ElementType)
             {
@@ -112,11 +112,20 @@ public class Blob : Connectable
         bool willCollide = false;
         foreach (Vector3Int part in blobRelativeParts)
         {
-            IGridElement collidedElement = Grid.IsCollide(part + direction + GridPosition);
+            IGridElement collidedElement = Grid.CanMoveTo(part + direction + GridPosition);
             if (collidedElement != null)
             {
+                Debug.Log(collidedElement.ElementType);
                 switch (collidedElement.ElementType)
                 {
+                    case GridElement.Wall:
+                        return false;
+                    case GridElement.Ceiling:
+                        EventManager.NextBlobRequested.Invoke();
+                        Destroy(gameObject);
+                        return false;
+                    case GridElement.Floor:
+                        break;
                     case GridElement.Blob:
                     case GridElement.Cage:
                         willCollide = true;

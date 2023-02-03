@@ -3,7 +3,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private KeyCode moveLeftKey, moveRightKey, rotateLeftKey, rotateRightKey;
-
+    [SerializeField] private KeyCode moveUpKey = KeyCode.W;
     [SerializeField] private KeyCode changePovKey = KeyCode.LeftShift, goto3DKey = KeyCode.Space;
 
     [SerializeField] private float holdTimeToSecondMovement, holdTimeToThirdMovement;
@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
     {
         MoveOrRotateInput(MovementType.Move, Direction.Right);
         MoveOrRotateInput(MovementType.Move, Direction.Left);
+        MoveOrRotateInput(MovementType.Move, Direction.Up);
         MoveOrRotateInput(MovementType.Rotate, Direction.Right);
         MoveOrRotateInput(MovementType.Rotate, Direction.Left);
         ChangePovInput();
@@ -50,13 +51,14 @@ public class InputManager : MonoBehaviour
     }
 
     private void MoveOrRotateInput(MovementType movementType, Direction direction)
-    {
+    {   
         KeyCode keyCode = movementType switch
         {
             MovementType.Move => direction switch
             {
                 Direction.Left => moveLeftKey,
                 Direction.Right => moveRightKey,
+                Direction.Up => moveUpKey,
                 _ => default
             },
             MovementType.Rotate => direction switch

@@ -1,7 +1,8 @@
 public enum Direction
 {
     Right,
-    Left
+    Left,
+    Up
 }
 
 public enum MovementType
@@ -24,10 +25,14 @@ public enum LinkState
 }
 
 
+
 public enum GridElement
 {
     Empty, 
     Blob, 
-    Cage
-};
+    Cage,
+    Wall,
+    Ceiling,
+    Floor
+}
 

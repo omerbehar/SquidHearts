@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private float timeFromLastTick;
     public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera;
-    [FormerlySerializedAs("testBlob")] [SerializeField] private Blob cage;
+    [SerializeField] private Blob cage;
     private void Awake()
     {
         if (Instance != null)

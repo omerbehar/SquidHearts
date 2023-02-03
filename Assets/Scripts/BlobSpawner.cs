@@ -40,7 +40,7 @@ public class BlobSpawner : MonoBehaviour
     private void InstantiateBlob()
     {
         newBlobPrefab = isRandom ? GetRandomBlobPrefab() : GetLevelDesignBlobPrefab();
-        Blob newBlob = Instantiate(newBlobPrefab, transform, true);
+        Blob newBlob = Instantiate(newBlobPrefab, transform, false);
         EventManager.BlobCreated.Invoke(newBlob);
     }
 

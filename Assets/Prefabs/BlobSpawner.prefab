@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blobPrefabs:
-  - {fileID: 848484261739219582, guid: c275fd42a5ec4ef47878b030a92ea75b, type: 3}
+  - {fileID: 7963003533747385405, guid: 0a7ded3284c88c44abfcbbc0abe733bf, type: 3}
+  - {fileID: 799130299212338106, guid: 3328917fae52398448168fe89c058968, type: 3}
+  - {fileID: 799130299212338106, guid: 453539c9bf5628349a9b542220d7e5fc, type: 3}
+  - {fileID: 799130299212338106, guid: dff5aee37c58cc94cb73eb675f3fe87b, type: 3}
+  - {fileID: 799130299212338106, guid: 2ca1b084c5e854244bb3e0156fd62cbd, type: 3}
   levelDesignBlobSequence: []
   isRandom: 1
