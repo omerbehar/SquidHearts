@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private float timeFromLastTick;
     public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera;
+    [SerializeField] private Blob testBlob;
     private void Awake()
     {
         if (Instance != null)
@@ -17,7 +18,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         InitEventListeners();
+        testBlob.GridPosition = new Vector3Int(50, 54, 50);
+        testBlob.isMovable = false;
+        Grid.AddBlobPart(testBlob.GridPosition, testBlob);
     }
+
 
     void Update()
     {
@@ -26,12 +31,12 @@ public class GameManager : MonoBehaviour
     private void InitEventListeners()
     {
         RemoveEventListeners();
-        EventManager.povChanged.AddListener(OnPovChanged);
+        EventManager.PovChanged.AddListener(OnPovChanged);
     }
 
     private void RemoveEventListeners()
     {
-        EventManager.povChanged.RemoveListener(OnPovChanged);
+        EventManager.PovChanged.RemoveListener(OnPovChanged);
     }
 
     private void OnPovChanged()

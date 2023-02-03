@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(goto3DKey))
         {
-            EventManager.threeDimensionsViewActivated.Invoke();
+            EventManager.ThreeDimensionsViewActivated.Invoke();
         }
     }
 
@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(changePovKey))
         {
-            EventManager.povChanged.Invoke();
+            EventManager.PovChanged.Invoke();
         }
     }
 
@@ -88,10 +88,10 @@ public class InputManager : MonoBehaviour
         switch (movementType)
         {
             case MovementType.Move:
-                EventManager.movementInput.Invoke(direction);
+                EventManager.MovementInput.Invoke(direction);
                 break;
             case MovementType.Rotate:
-                EventManager.rotateClicked.Invoke(direction);
+                EventManager.RotateClicked.Invoke(direction);
                 break;
         }
         timeFromKeyDown = 0;
