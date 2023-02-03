@@ -30,7 +30,7 @@ public class Blob : Connectable
             Vector3Int newPart;
             if (directionVector.z != 0)
             {
-                newPart = (new Vector3Int(-part.y * directionVector.z, part.x * directionVector.z, part.z));
+                newPart = (new Vector3Int(part.y * directionVector.x, -part.z * directionVector.x, part.z));
             }
             else if (directionVector.x != 0)
             {
@@ -40,40 +40,8 @@ public class Blob : Connectable
             if (CanRotatePart(newPart))
                 newParts.Add(newPart);
         }
-
-        //Vector3Int rotationAxis = Vector3Int.zero;
-
-        //if (directionVector.x != 0)
-        //    rotationAxis = Vector3Int.right * directionVector.x;
-        //else if (directionVector.z != 0)
-        //{
-        //    switch (rotationCount.x)
-        //    {
-        //        case 0:
-        //            rotationAxis = Vector3Int.forward;
-        //            break;
-        //        case 1:
-        //            rotationAxis = Vector3Int.up;
-        //            break;
-        //        case 2:
-        //            rotationAxis = Vector3Int.back;
-        //            break;
-        //        case 3:
-        //            rotationAxis = Vector3Int.down;
-        //            break;
-        //    }
-        //    rotationAxis *= directionVector.z;
-        //}
-        ////print("RotationAxis: " + rotationAxis);
-        //rotationCount += rotationAxis;
-        //rotationCount = new Vector3Int(rotationCount.x % 4, rotationCount.y % 4, rotationCount.z % 4);
-        //print("euler: " + transform.localEulerAngles + " Add: " + rotationAxis * 90);
-        //transform.Rotate(rotationAxis * 90);
-        //print("Result: " + transform.localEulerAngles);
-        print(directionVector * 90);
-        transform.Rotate(directionVector * 90,Space.World);
+        transform.eulerAngles += directionVector * 90;
         blobRelativeParts = newParts;
-
     }
     public void MoveBlobOnInput(Vector3Int directionVector)
     {
@@ -93,6 +61,7 @@ public class Blob : Connectable
         }
     }
 
+   
     private bool CanRotatePart(Vector3Int newPart)
     {
         IGridElement collidedElement = Grid.IsCollide(newPart + GridPosition);
@@ -148,22 +117,4 @@ public class Blob : Connectable
     {
         throw new NotImplementedException();
     }
-
- //public void RotateBlobOnInput(Vector3Int directionVector)
-    //{
-    //    List<Vector3Int> newParts = new();
-    //    foreach (Vector3Int part in blobRelativeParts)
-    //    {
-    //        Vector3Int newPart;
-    //        if (directionVector.x != 0)
-    //        {
-    //            newPart = (new Vector3Int(part.x, part.z * directionVector.x, -part.y * directionVector.x));
-    //        }
-    //        else if (directionVector.z != 0)
-    //        {
-    //            newPart = (new Vector3Int(part.y * directionVector.z, -part.x * directionVector.z, part.z));
-    //        }
-    //    }
-    //    transform.rotation *= Quaternion.AngleAxis(90f, directionVector);
-    //}
 }
