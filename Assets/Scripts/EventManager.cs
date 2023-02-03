@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class EventManager : MonoBehaviour
+public static class EventManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static UnityEvent<Direction> movementClicked = new UnityEvent<Direction>();
+    public static UnityEvent<Direction> rotateClicked = new UnityEvent<Direction>();
+    public static UnityEvent povChanged = new UnityEvent();
+    public static UnityEvent threeDimensionsViewActivated = new UnityEvent();
 }
