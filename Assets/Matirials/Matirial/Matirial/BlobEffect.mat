@@ -101,14 +101,17 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DisplacementSpeed: 0.004
+    - _DisplacementStrength: 0.3
     - _Displasement: 0.1
+    - _DisplasementSmoothness: 0.22
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NoiceScale: 2.94
+    - _NoiceScale: 2.18
     - _NormalStrength: 21.91
     - _OcclusionStrength: 1
     - _Opacity: 1

@@ -11,7 +11,7 @@ public class MeshJoiner : MonoBehaviour
     {
         // Create a new mesh
         mesh = new Mesh();
-        JoinMeshes();
+        //JoinMeshes();
     }
     // Get the vertices and triangles from the cubes
     List<Vector3> vertices = new List<Vector3>();
