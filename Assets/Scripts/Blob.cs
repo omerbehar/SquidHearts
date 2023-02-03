@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Blub : MonoBehaviour
+public class Blob : MonoBehaviour
 {
     public Vector3Int blobGridPosition = new Vector3Int(50, 50, 50);
     private bool isMoving = true;
