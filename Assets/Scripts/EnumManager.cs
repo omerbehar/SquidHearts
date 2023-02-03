@@ -5,7 +5,8 @@ using UnityEngine;
 public enum Direction
 {
     Right,
-    Left
+    Left,
+    Up
 }
 
 public enum MovementType
@@ -19,3 +20,10 @@ public enum PovState
     Front,  //X
     Side    //Z
 }
+
+public enum GridElement
+{
+    Empty, 
+    Blob, 
+    Cage
+};
