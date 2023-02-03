@@ -11,9 +11,16 @@ public class Player : MonoBehaviour
     private void InitEventListeners()
     {
         RemoveEventListeners();
-        EventManager.movementInput.AddListener(OnMovementClicked);
-        EventManager.rotateClicked.AddListener(OnRotateClicked);
+        EventManager.MovementInput.AddListener(OnMovementClicked);
+        EventManager.RotateClicked.AddListener(OnRotateClicked);
+        EventManager.BlobCreated.AddListener(OnBlobCreated);
     }
+
+    private void OnBlobCreated(Blob newBlob)
+    {
+        currentBlob = newBlob;
+    }
+
     private void OnRotateClicked(Direction direction)
     {
         switch (GameManager.Instance.povState)
@@ -75,7 +82,8 @@ public class Player : MonoBehaviour
     }
     private void RemoveEventListeners()
     {
-        EventManager.movementInput.RemoveListener(OnMovementClicked);
-        EventManager.rotateClicked.RemoveListener(OnRotateClicked);
+        EventManager.MovementInput.RemoveListener(OnMovementClicked);
+        EventManager.RotateClicked.RemoveListener(OnRotateClicked);
+        EventManager.BlobCreated.RemoveListener(OnBlobCreated);
     }
 }
