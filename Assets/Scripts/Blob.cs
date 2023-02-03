@@ -5,8 +5,8 @@ using UnityEngine;
 public class Blob : MonoBehaviour
 {
     public Vector3Int blobGridPosition = new Vector3Int(50, 50, 50);
+    [SerializeField] private List<Vector3Int> blobRelativeParts = new();
     private bool isMoving = true;
-    public List<Vector3Int> blobRelativeParts = new();
 
     public void MoveBlobOnTick()
     {
