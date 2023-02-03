@@ -5,12 +5,12 @@ using UnityEngine;
 
 public abstract class Connectable : MonoBehaviour, IGridElement
 {
-    public GridElement ElementType { get; protected set; }
+    [field: SerializeField]public GridElement ElementType { get; protected set; }
     private List<Link> links = new List<Link>();
 
     public int GetHopCount()
     {
-        return links.First(l => l.linkState == LinkState.RootPort).hopCount;
+        return links.FirstOrDefault(l => l.linkState == LinkState.RootPort).hopCount;
     }
     public void AddLink(Connectable element, LinkState state)
     {
@@ -18,11 +18,11 @@ public abstract class Connectable : MonoBehaviour, IGridElement
     }
     protected void ConnectToElement(IGridElement element)
     {
-        if (typeof(Connectable).IsAssignableFrom(element.GetType()))
-        {
-            Connectable connected = (Connectable)element;
-            links.Add(new Link() { connected = connected, hopCount = connected.GetHopCount() + 1 });
-        }
+        // if (typeof(Connectable).IsAssignableFrom(element.GetType()))
+        // {
+        //     Connectable connected = (Connectable)element;
+        //     links.Add(new Link() { connected = connected, hopCount = connected.GetHopCount() + 1 });
+        // }
     }
     protected void UpdateNewConnections()
     {

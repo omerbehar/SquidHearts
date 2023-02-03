@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     private float timeFromLastTick;
     public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera;
+    [FormerlySerializedAs("testBlob")] [SerializeField] private Blob cage;
     private void Awake()
     {
         if (Instance != null)
@@ -17,7 +19,10 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         InitEventListeners();
+        cage.isMovable = false;
+        Grid.AddBlobPart(cage.GridPosition, cage);
     }
+
 
     void Update()
     {
@@ -26,12 +31,12 @@ public class GameManager : MonoBehaviour
     private void InitEventListeners()
     {
         RemoveEventListeners();
-        EventManager.povChanged.AddListener(OnPovChanged);
+        EventManager.PovChanged.AddListener(OnPovChanged);
     }
 
     private void RemoveEventListeners()
     {
-        EventManager.povChanged.RemoveListener(OnPovChanged);
+        EventManager.PovChanged.RemoveListener(OnPovChanged);
     }
 
     private void OnPovChanged()

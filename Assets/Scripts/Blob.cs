@@ -4,14 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+[Serializable]
 public class Blob : Connectable
 {
-    public Vector3Int GridPosition { get; private set; } = new Vector3Int(50, 50, 50);
+    [field: SerializeField] public Vector3Int GridPosition { get; set; } = new Vector3Int(50, 50, 50);
 
     [SerializeField] private List<Vector3Int> blobRelativeParts = new();
-    private bool isMovable = true;
-    private Vector3Int rotationCount = Vector3Int.zero;
+    public bool isMovable = true;
+    private List<Link> links;
 
     public void MoveBlobOnTick()
     {
@@ -82,7 +82,7 @@ public class Blob : Connectable
             EventManager.Tick.RemoveListener(MoveBlobOnTick);
             return;
         }
-        if (CanMove(new Vector3Int(directionVector.x, 0, directionVector.z)))
+        if (CanMove(directionVector))
         {
             transform.position += (Vector3)directionVector * Grid.GridUnit;
             GridPosition += directionVector;
@@ -114,6 +114,7 @@ public class Blob : Connectable
         {
             IGridElement collidedElement = Grid.IsCollide(part + direction + GridPosition);
             if (collidedElement != null)
+            {
                 switch (collidedElement.ElementType)
                 {
                     case GridElement.Blob:
@@ -122,6 +123,7 @@ public class Blob : Connectable
                         ConnectToElement(collidedElement);
                         break;
                 }
+            }
         }
         UpdateNewConnections();
         if (willCollide)
@@ -131,6 +133,7 @@ public class Blob : Connectable
             {
                 Grid.AddBlobPart(part + GridPosition, this);
             }
+            EventManager.NextBlobRequested.Invoke();
         }
         return isMovable;
     }
