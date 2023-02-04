@@ -6,12 +6,13 @@ using UnityEngine;
 
 public abstract class Connectable : MonoBehaviour, IGridElement
 {
-    [field: SerializeField] public GridElement ElementType { get; protected set; }
+    [field: SerializeField] public GridElementType ElementType { get; protected set; }
     private List<Link> links = new List<Link>();
 
     public int GetHopCount()
     {
-        return links.FirstOrDefault(l => l.linkState == LinkState.RootPort).hopCount;
+        Link newLink = links.FirstOrDefault(l => l.linkState == LinkState.RootPort);
+        return newLink?.hopCount ?? 1000;
     }
     
     protected void OnConnected(IGridElement element)

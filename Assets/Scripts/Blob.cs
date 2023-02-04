@@ -9,7 +9,7 @@ public class Blob : Connectable
 {
     [field: SerializeField] public Vector3Int GridPosition { get; set; } = new Vector3Int(50, 50, 50);
 
-    [SerializeField] private List<Vector3Int> blobRelativeParts = new();
+    [SerializeField] protected List<Vector3Int> blobRelativeParts = new();
     public bool isMovable = true;
 
     public void MoveBlobOnTick()
@@ -67,11 +67,21 @@ public class Blob : Connectable
         if (collidedElement != null)
             switch (collidedElement.ElementType)
             {
-                case GridElement.Blob:
-                case GridElement.Cage:
+                case GridElementType.Blob:
                     EventManager.CantRotate.Invoke();
                     print("CantRotate");
-                    return false; ;
+                    return false;
+                case GridElementType.BlobDestroyer:
+                    DestroyBlob();
+                    break;
+                case GridElementType.Wall:
+                    return false;
+                case GridElementType.Ceiling:
+                    EventManager.NextBlobRequested.Invoke();
+                    DestroyBlob();
+                    return false;
+                case GridElementType.Floor:
+                    return false;
             }
         return true;
     }
@@ -86,16 +96,18 @@ public class Blob : Connectable
                 Debug.Log(collidedElement.ElementType);
                 switch (collidedElement.ElementType)
                 {
-                    case GridElement.Wall:
-                        return false;
-                    case GridElement.Ceiling:
-                        EventManager.NextBlobRequested.Invoke();
-                        Destroy(gameObject);
-                        return false;
-                    case GridElement.Floor:
+                    case GridElementType.BlobDestroyer:
+                        DestroyBlob();
                         break;
-                    case GridElement.Blob:
-                    case GridElement.Cage:
+                    case GridElementType.Wall:
+                        return false;
+                    case GridElementType.Ceiling:
+                        EventManager.NextBlobRequested.Invoke();
+                        DestroyBlob();
+                        return false;
+                    case GridElementType.Floor:
+                        return false;
+                    case GridElementType.Blob:
                         willCollide = true;
                         OnConnected(collidedElement);
                         break;
@@ -108,17 +120,38 @@ public class Blob : Connectable
             isMovable = false;
             foreach (Vector3Int part in blobRelativeParts)
             {
-                Grid.AddBlobPart(part + GridPosition, this);
+                Grid.AddPartToGrid(part + GridPosition, this);
             }
             EventManager.NextBlobRequested.Invoke();
         }
+        else
+        {
+            CheckOverlapOnConnect();
+        }
         return isMovable;
     }
-
+    private void CheckOverlapOnConnect()
+    {
+        foreach (Vector3Int part in blobRelativeParts)
+        {
+            switch (Grid.CanMoveTo(part).ElementType)
+            {
+                case GridElementType.EscapeButton:
+                    EventManager.ReachEscapeButton.Invoke();
+                    break;
+                case GridElementType.WaterPool:
+                    EventManager.ConnectWaterPool.Invoke();
+                    break;
+            }
+        }
+    }
+    private void DestroyBlob() {
+        Destroy(gameObject);
+    }
 
     private void Start()
     {
-        EventManager.Tick.AddListener(MoveBlobOnTick);
+        
     }
 
     public void AddLink(IGridElement element, LinkState state)
@@ -126,21 +159,5 @@ public class Blob : Connectable
         throw new NotImplementedException();
     }
 
- //public void RotateBlobOnInput(Vector3Int directionVector)
-    //{
-    //    List<Vector3Int> newParts = new();
-    //    foreach (Vector3Int part in blobRelativeParts)
-    //    {
-    //        Vector3Int newPart;
-    //        if (directionVector.x != 0)
-    //        {
-    //            newPart = (new Vector3Int(part.x, part.z * directionVector.x, -part.y * directionVector.x));
-    //        }
-    //        else if (directionVector.z != 0)
-    //        {
-    //            newPart = (new Vector3Int(part.y * directionVector.z, -part.x * directionVector.z, part.z));
-    //        }
-    //    }
-    //    transform.rotation *= Quaternion.AngleAxis(90f, directionVector);
-    //}
+
 }

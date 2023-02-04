@@ -14,7 +14,8 @@ public enum MovementType
 public enum PovState
 {
     Front,  //X
-    Side    //Z
+    Side,   //Z
+    Iso     //45
 }
 
 public enum LinkState
@@ -26,11 +27,13 @@ public enum LinkState
 
 
 
-public enum GridElement
+public enum GridElementType
 {
     Empty, 
     Blob, 
-    Cage,
+    EscapeButton,
+    BlobDestroyer,
+    WaterPool
     Wall,
     Ceiling,
     Floor

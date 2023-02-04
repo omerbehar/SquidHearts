@@ -1,9 +1,9 @@
 
 public class OutOfBoundElement : IGridElement
 {
-    public GridElement ElementType { get; }
+    public GridElementType ElementType { get; }
 
-    public OutOfBoundElement(GridElement elementType)
+    public OutOfBoundElement(GridElementType elementType)
     {
         ElementType = elementType;
     }
