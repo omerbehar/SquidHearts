@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         InitEventListeners();
         cage.isMovable = false;
 
+
             Grid.AddBlobPart(cage.GridPosition, cage);
         
         RestartGameInitData();
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
     {
         RemoveEventListeners();
         EventManager.PovChanged.AddListener(OnPovChanged);
+        EventManager.ConnectWaterPool.AddListener(OnConnectToWaterPool);
         EventManager.ThreeDimensionsViewActivated.AddListener(On3DActivated);
         EventManager.RestartGame.AddListener(OnRestartGame);
     }
@@ -132,4 +134,10 @@ public class GameManager : MonoBehaviour
             timeFromLastTick += Time.deltaTime;
         }
     }
+
+    private void OnConnectToWaterPool()
+    {
+
+    }
+    
 }
