@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node
 {
     public Node parent;
-    public List<Node> children;
+    public List<Node> children = new();
     public Vector3Int position;
     public int distanceFromOrigin;
     public int distanceFromTarget;

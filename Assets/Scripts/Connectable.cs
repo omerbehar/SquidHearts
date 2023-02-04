@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class Connectable : MonoBehaviour, IGridElement
 {
-    [field: SerializeField] public GridElement ElementType { get; protected set; }
+    [field: SerializeField] public GridElementType ElementType { get; protected set; }
     private List<Link> links = new List<Link>();
 
     public int GetHopCount()

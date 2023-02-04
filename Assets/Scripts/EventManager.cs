@@ -10,4 +10,6 @@ public static class EventManager
     public static UnityEvent ThreeDimensionsViewActivated = new();
     public static UnityEvent NextBlobRequested = new();
     public static UnityEvent<Blob> BlobCreated = new();
+    public static UnityEvent ReachEscapeButton = new();
+    public static UnityEvent ConnectWaterPool = new();
 }

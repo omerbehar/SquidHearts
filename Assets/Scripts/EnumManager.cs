@@ -26,11 +26,13 @@ public enum LinkState
 
 
 
-public enum GridElement
+public enum GridElementType
 {
     Empty, 
     Blob, 
-    Cage,
+    EscapeButton,
+    BlobDestroyer,
+    WaterPool
     Wall,
     Ceiling,
     Floor

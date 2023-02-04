@@ -1,5 +1,5 @@
 ﻿
 public interface IGridElement
 {
-    GridElement ElementType { get; }
+    GridElementType ElementType { get; }
 }
