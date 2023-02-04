@@ -11,6 +11,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Button tryAgainButton, abandonButton;
     [SerializeField] private TextMeshProUGUI blobCountText;
     [SerializeField] private TextMeshProUGUI isoTimerText;
+    [SerializeField] private TextMeshProUGUI winLoseText;
     private void Awake()
     {
         InitListeners();
@@ -27,6 +28,7 @@ public class UiManager : MonoBehaviour
         EventManager.GameLost.AddListener(ShowLoseSplashScreen);
         EventManager.BlobCreated.AddListener(UpdateBlobCountText);
         EventManager.UpdateIsoTimer.AddListener(OnIsoTimerUpdate);
+        EventManager.ReachEscapeButton.AddListener(OnWin);
     }
 
     private void OnIsoTimerUpdate()
@@ -60,4 +62,12 @@ public class UiManager : MonoBehaviour
         WinLosePanel.SetActive(false);
         tryAgainButton.onClick.RemoveAllListeners();
     }
+     private void OnWin()
+    {
+        WinLosePanel.SetActive(true);
+        winLoseText.text = "You win!?\nHOW???";
+        tryAgainButton.onClick.AddListener(TryAgainClicked);
+    }
+
+
 }
