@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,9 @@ public class UiManager : MonoBehaviour
 
     private void OnIsoTimerUpdate()
     {
-        isoTimerText.text = GameManager.Instance.isoStateTime.ToString();
+        float isoTime = GameManager.Instance.isoStateTime;
+        isoTime = (float)Math.Round(isoTime, 1);
+        isoTimerText.text = isoTime.ToString();
     }
 
     private void UpdateBlobCountText(Blob arg0)
