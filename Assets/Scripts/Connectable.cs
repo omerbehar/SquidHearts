@@ -11,7 +11,8 @@ public abstract class Connectable : MonoBehaviour, IGridElement
 
     public int GetHopCount()
     {
-        return links.FirstOrDefault(l => l.linkState == LinkState.RootPort).hopCount;
+        Link newLink = links.FirstOrDefault(l => l.linkState == LinkState.RootPort);
+        return newLink?.hopCount ?? 1000;
     }
     
     protected void OnConnected(IGridElement element)

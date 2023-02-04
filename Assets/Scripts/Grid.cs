@@ -26,4 +26,9 @@ public static class Grid
         Debug.LogError($"position out of bounds {position}");
         return true;
     }
+
+    public static void ClearGrid()
+    {
+        grid = new IGridElement[14, 19, 14];
+    }
 }
