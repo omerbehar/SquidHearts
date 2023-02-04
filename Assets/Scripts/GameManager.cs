@@ -28,10 +28,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         InitEventListeners();
         cage.isMovable = false;
-
-
-            Grid.AddBlobPart(cage.GridPosition, cage);
-        
+        Grid.AddPartToGrid(cage.GridPosition, cage);
         RestartGameInitData();
     }
 
@@ -100,7 +97,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         blobAmount = restartLevelBlobAmount;
         Grid.ClearGrid();
-        Grid.AddBlobPart(cage.GridPosition, cage);
+        Grid.AddPartToGrid(cage.GridPosition, cage);
     }
 
     private void OnPovChanged()

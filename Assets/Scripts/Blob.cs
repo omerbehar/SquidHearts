@@ -55,10 +55,6 @@ public class Blob : Connectable
             transform.position += (Vector3)directionVector * Grid.GridUnit;
             GridPosition += directionVector;
         }
-        // else
-        // {
-        //     EventManager.Tick.RemoveListener(MoveBlobOnTick);
-        // }
     }
 
     private bool CanRotatePart(Vector3Int newPart)
@@ -134,15 +130,17 @@ public class Blob : Connectable
     {
         foreach (Vector3Int part in blobRelativeParts)
         {
-            switch (Grid.CanMoveTo(part).ElementType)
-            {
-                case GridElementType.EscapeButton:
-                    EventManager.ReachEscapeButton.Invoke();
-                    break;
-                case GridElementType.WaterPool:
-                    EventManager.ConnectWaterPool.Invoke();
-                    break;
-            }
+            IGridElement gridElement = Grid.CanMoveTo(part);
+            if (gridElement != null)
+                switch (gridElement.ElementType)
+                {
+                    case GridElementType.EscapeButton:
+                        EventManager.ReachEscapeButton.Invoke();
+                        break;
+                    case GridElementType.WaterPool:
+                        EventManager.ConnectWaterPool.Invoke();
+                        break;
+                }
         }
     }
     private void DestroyBlob() {
@@ -151,7 +149,7 @@ public class Blob : Connectable
 
     private void Start()
     {
-        
+        EventManager.Tick.AddListener(MoveBlobOnTick);
     }
 
     public void AddLink(IGridElement element, LinkState state)

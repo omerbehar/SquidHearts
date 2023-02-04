@@ -33,7 +33,7 @@ public enum GridElementType
     Blob, 
     EscapeButton,
     BlobDestroyer,
-    WaterPool
+    WaterPool,
     Wall,
     Ceiling,
     Floor

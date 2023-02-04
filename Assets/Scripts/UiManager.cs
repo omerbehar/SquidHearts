@@ -16,6 +16,11 @@ public class UiManager : MonoBehaviour
         InitListeners();
     }
 
+    private void Start()
+    {
+        OnIsoTimerUpdate();
+    }
+
     private void InitListeners()
     {
         RemoveListeners();
