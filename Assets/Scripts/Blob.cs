@@ -12,7 +12,7 @@ public class Blob : Connectable
     [SerializeField] protected List<Vector3Int> blobRelativeParts = new();
     public bool isMovable = true;
 
-    public void MoveBlobOnTick()
+    public void MoveBlobOnTick ()
     {
         if (!isMovable)
         {
@@ -21,7 +21,7 @@ public class Blob : Connectable
         }
         MoveBlobOnInput(new Vector3Int(0, 1, 0));
     }
-    public void RotateBlobOnInput(Vector3Int directionVector)
+    public void RotateBlobOnInput (Vector3Int directionVector)
     {
         List<Vector3Int> newParts = new();
         foreach (Vector3Int part in blobRelativeParts)
@@ -40,10 +40,10 @@ public class Blob : Connectable
                 newParts.Add(newPart);
         }
         print(directionVector * 90);
-        transform.Rotate(directionVector * 90,Space.World);
+        transform.Rotate(directionVector * 90, Space.World);
         blobRelativeParts = newParts;
     }
-    public void MoveBlobOnInput(Vector3Int directionVector)
+    public void MoveBlobOnInput (Vector3Int directionVector)
     {
         if (!isMovable)
         {
@@ -57,7 +57,7 @@ public class Blob : Connectable
         }
     }
 
-    private bool CanRotatePart(Vector3Int newPart)
+    private bool CanRotatePart (Vector3Int newPart)
     {
         IGridElement collidedElement = Grid.CanMoveTo(newPart + GridPosition);
         if (collidedElement != null)
@@ -66,22 +66,24 @@ public class Blob : Connectable
                 case GridElementType.Blob:
                     EventManager.CantRotate.Invoke();
                     print("CantRotate");
+                    EventManager.FailAction.Invoke();
                     return false;
                 case GridElementType.BlobDestroyer:
                     DestroyBlob();
                     break;
+                case GridElementType.Floor:
                 case GridElementType.Wall:
+                    EventManager.FailAction.Invoke();
                     return false;
                 case GridElementType.Ceiling:
                     EventManager.NextBlobRequested.Invoke();
                     DestroyBlob();
                     return false;
-                case GridElementType.Floor:
-                    return false;
             }
+
         return true;
     }
-    private bool CanMove(Vector3Int direction)
+    private bool CanMove (Vector3Int direction)
     {
         bool willCollide = false;
         foreach (Vector3Int part in blobRelativeParts)
@@ -95,13 +97,14 @@ public class Blob : Connectable
                     case GridElementType.BlobDestroyer:
                         DestroyBlob();
                         break;
-                    case GridElementType.Wall:
-                        return false;
+                    
                     case GridElementType.Ceiling:
                         EventManager.NextBlobRequested.Invoke();
                         DestroyBlob();
                         return false;
+                    case GridElementType.Wall:
                     case GridElementType.Floor:
+                        EventManager.FailAction.Invoke();
                         return false;
                     case GridElementType.Blob:
                         willCollide = true;
@@ -126,7 +129,7 @@ public class Blob : Connectable
         }
         return isMovable;
     }
-    private void CheckOverlapOnConnect()
+    private void CheckOverlapOnConnect ()
     {
         foreach (Vector3Int part in blobRelativeParts)
         {
@@ -143,16 +146,18 @@ public class Blob : Connectable
                 }
         }
     }
-    private void DestroyBlob() {
+    private void DestroyBlob ()
+    {
+        EventManager.BlobDestroyed.Invoke();
         Destroy(gameObject);
     }
 
-    private void Start()
+    private void Start ()
     {
         EventManager.Tick.AddListener(MoveBlobOnTick);
     }
 
-    public void AddLink(IGridElement element, LinkState state)
+    public void AddLink (IGridElement element, LinkState state)
     {
         throw new NotImplementedException();
     }
