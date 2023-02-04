@@ -14,7 +14,8 @@ public enum MovementType
 public enum PovState
 {
     Front,  //X
-    Side    //Z
+    Side,   //Z
+    Iso     //45
 }
 
 public enum LinkState

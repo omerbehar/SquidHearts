@@ -39,6 +39,12 @@ public class BlobSpawner : MonoBehaviour
 
     private void InstantiateBlob()
     {
+        if (GameManager.Instance.blobAmount == 0)
+        {
+            EventManager.GameLost.Invoke();
+            return;
+        }
+        GameManager.Instance.blobAmount--;
         newBlobPrefab = isRandom ? GetRandomBlobPrefab() : GetLevelDesignBlobPrefab();
         Blob newBlob = Instantiate(newBlobPrefab, transform, false);
         EventManager.BlobCreated.Invoke(newBlob);

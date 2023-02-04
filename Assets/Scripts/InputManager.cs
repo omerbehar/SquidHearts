@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] private float holdTimeToSecondMovement, holdTimeToThirdMovement;
 
+    private bool isPovHeld;
+    private bool isIsoHeld;
     private float timeFromKeyDown;
 
     private int moveCount;
@@ -36,17 +38,31 @@ public class InputManager : MonoBehaviour
 
     private void Goto3DInput()
     {
+        if (isPovHeld) return;
         if (Input.GetKeyDown(goto3DKey))
         {
             EventManager.ThreeDimensionsViewActivated.Invoke();
+            isIsoHeld = true;
+        }
+        if (Input.GetKeyUp(goto3DKey))
+        {
+            EventManager.ThreeDimensionsViewActivated.Invoke();
+            isIsoHeld = false;
         }
     }
 
     private void ChangePovInput()
     {
+        if (isIsoHeld) return;
         if (Input.GetKeyDown(changePovKey))
         {
             EventManager.PovChanged.Invoke();
+            isPovHeld = true;
+        }
+        if (Input.GetKeyUp(changePovKey))
+        {
+            EventManager.PovChanged.Invoke();
+            isPovHeld = false;
         }
     }
 
