@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private float timeFromLastTick;
     public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera;
+    [SerializeField] private GameObject zCameraWall, xCameraWall;
     [SerializeField] private Blob cage;
     private void Awake()
     {
@@ -45,12 +46,16 @@ public class GameManager : MonoBehaviour
         if (povState == PovState.Front)
         {
             zCamera.enabled = false;
+            zCameraWall.SetActive(false);
             xCamera.enabled = true;
+            xCameraWall.SetActive(true);
         }
         else
         {
             zCamera.enabled = true;
+            zCameraWall.SetActive(true);
             xCamera.enabled = false;
+            xCameraWall.SetActive(false);
         }
     }
 
