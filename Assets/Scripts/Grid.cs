@@ -88,4 +88,9 @@ public static class Grid
     }
 
 
+
+    public static void ClearGrid()
+    {
+        grid = new IGridElement[14, 19, 14];
+    }
 }
