@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject zCameraWall, xCameraWall;
     [SerializeField] private Blob cage;
     [SerializeField] public int blobAmount = 15;
+    [SerializeField] public float isoStateTime = 15;
+    [SerializeField] private float isoStateTimeUpdateResolution = 0.05f;
+    private float timeFromLastIsoStateTimeUpdate;
     private int restartLevelBlobAmount;
     private bool wasCageCreated;
     private void Awake()
@@ -40,7 +43,24 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Ticker();
+        IsoStateTimer();
     }
+
+    private void IsoStateTimer()
+    {
+        Debug.Log(povState);
+        if (povState == PovState.Iso)
+        {
+            isoStateTime -= Time.deltaTime;
+            timeFromLastIsoStateTimeUpdate += Time.deltaTime;
+            if (timeFromLastIsoStateTimeUpdate > isoStateTimeUpdateResolution)
+            {
+                EventManager.UpdateIsoTimer.Invoke();
+                timeFromLastIsoStateTimeUpdate = 0;
+            }
+        }
+    }
+
     private void InitEventListeners()
     {
         RemoveEventListeners();
