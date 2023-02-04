@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject zCameraWall, xCameraWall;
     [SerializeField] private Blob cage;
     [SerializeField] public int blobAmount = 15;
+    [SerializeField] public int waterPoolBlobBonus = 5;
     [SerializeField] public float isoStateTime = 15;
     [SerializeField] private float isoStateTimeUpdateResolution = 0.05f;
     private float timeFromLastIsoStateTimeUpdate;
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour
 
     private void OnConnectToWaterPool()
     {
-
+        blobAmount += waterPoolBlobBonus;
     }
     
 }
