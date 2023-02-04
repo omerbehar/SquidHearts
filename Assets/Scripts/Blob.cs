@@ -11,7 +11,6 @@ public class Blob : Connectable
 
     [SerializeField] private List<Vector3Int> blobRelativeParts = new();
     public bool isMovable = true;
-    private List<Link> links;
 
     public void MoveBlobOnTick()
     {
@@ -40,40 +39,9 @@ public class Blob : Connectable
             if (CanRotatePart(newPart))
                 newParts.Add(newPart);
         }
-
-        //Vector3Int rotationAxis = Vector3Int.zero;
-
-        //if (directionVector.x != 0)
-        //    rotationAxis = Vector3Int.right * directionVector.x;
-        //else if (directionVector.z != 0)
-        //{
-        //    switch (rotationCount.x)
-        //    {
-        //        case 0:
-        //            rotationAxis = Vector3Int.forward;
-        //            break;
-        //        case 1:
-        //            rotationAxis = Vector3Int.up;
-        //            break;
-        //        case 2:
-        //            rotationAxis = Vector3Int.back;
-        //            break;
-        //        case 3:
-        //            rotationAxis = Vector3Int.down;
-        //            break;
-        //    }
-        //    rotationAxis *= directionVector.z;
-        //}
-        ////print("RotationAxis: " + rotationAxis);
-        //rotationCount += rotationAxis;
-        //rotationCount = new Vector3Int(rotationCount.x % 4, rotationCount.y % 4, rotationCount.z % 4);
-        //print("euler: " + transform.localEulerAngles + " Add: " + rotationAxis * 90);
-        //transform.Rotate(rotationAxis * 90);
-        //print("Result: " + transform.localEulerAngles);
         print(directionVector * 90);
         transform.Rotate(directionVector * 90,Space.World);
         blobRelativeParts = newParts;
-
     }
     public void MoveBlobOnInput(Vector3Int directionVector)
     {
@@ -120,12 +88,12 @@ public class Blob : Connectable
                     case GridElement.Blob:
                     case GridElement.Cage:
                         willCollide = true;
-                        ConnectToElement(collidedElement);
+                        OnConnected(collidedElement);
                         break;
                 }
             }
         }
-        UpdateNewConnections();
+        SetNewConnectionsStatus();
         if (willCollide)
         {
             isMovable = false;
