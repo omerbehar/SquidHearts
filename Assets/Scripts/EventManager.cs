@@ -15,4 +15,6 @@ public static class EventManager
     public static UnityEvent GameLost = new();
     public static UnityEvent RestartGame = new();
     public static UnityEvent UpdateIsoTimer = new();
+    public static UnityEvent BlobDestroyed = new();
+    public static UnityEvent FailAction = new();
 }
