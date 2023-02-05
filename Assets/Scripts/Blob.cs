@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Blob : Connectable
 {
-    [field: SerializeField] public Vector3Int GridPosition { get; set; } = new Vector3Int(50, 50, 50);
+    [field: SerializeField] public Vector3Int GridPosition { get; set; }
 
     [SerializeField] protected List<Vector3Int> blobRelativeParts = new();
     public bool isMovable = true;

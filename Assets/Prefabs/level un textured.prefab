@@ -591,7 +591,7 @@ GameObject:
   - component: {fileID: 624407193018401670}
   - component: {fileID: 624407193018401671}
   - component: {fileID: 624407193018401668}
-  - component: {fileID: 624407193018401669}
+  - component: {fileID: 1238862042430120274}
   m_Layer: 0
   m_Name: shalf (1)
   m_TagString: Untagged
@@ -664,19 +664,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &624407193018401669
-BoxCollider:
+--- !u!114 &1238862042430120274
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624407193018401690}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06548c3aac4a6e44ea876c9c054e9528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GridPosition>k__BackingField: {x: 0, y: 0, z: 0}
+  <ElementType>k__BackingField: 0
+  RelativeParts: []
 --- !u!1 &624407193037247990
 GameObject:
   m_ObjectHideFlags: 0

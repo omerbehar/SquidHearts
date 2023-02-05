@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GenericGridElement :MonoBehaviour, IGridElement
 {
+    [field: SerializeField] public Vector3Int GridPosition { get; set; }
     [field:SerializeField]public GridElementType ElementType { get; set; }
     [SerializeField] private List<Vector3Int> RelativeParts = new();
 
