@@ -17,11 +17,6 @@ public class UiManager : MonoBehaviour
         InitListeners();
     }
 
-    private void Start()
-    {
-        OnIsoTimerUpdate();
-    }
-
     private void InitListeners()
     {
         RemoveListeners();
@@ -31,16 +26,15 @@ public class UiManager : MonoBehaviour
         EventManager.ReachEscapeButton.AddListener(OnWin);
     }
 
-    private void OnIsoTimerUpdate()
+    private void OnIsoTimerUpdate(float isoTime)
     {
-        float isoTime = GameManager.Instance.isoStateTime;
         isoTime = (float)Math.Round(isoTime, 1);
         isoTimerText.text = isoTime.ToString();
     }
 
-    private void UpdateBlobCountText(Blob arg0)
+    private void UpdateBlobCountText(Blob blob, int blobCount)
     {
-        blobCountText.text = GameManager.Instance.blobAmount.ToString();
+        blobCountText.text = blobCount.ToString();
     }
 
     private void RemoveListeners()
