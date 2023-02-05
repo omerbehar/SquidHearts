@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -11,23 +12,45 @@ public class Root : MonoBehaviour
     //public Transform targetP;
     public Vector3 lastTargetPoint;
     //public Vector3 target_Offset;
-    [SerializeField] LineRenderer target;
-    public int currentPosition = 0;
-    public float speed = 20f;
-
+    [SerializeField] private Vector3 offset;
     const int MaxPositions = 10000;
-    private void Start()
+    private List<LineRenderer> lineRenderers = new List<LineRenderer>();
+    private void Awake()
     {
         EventManager.PartAddedToGrid.AddListener(OnPartAddedToGrid);
-        trailRecorded = Grid.calculatedTrail;
-        lastTargetPoint = trailRecorded.position;
+    }
+
+    private LineRenderer CreateLineRendererChild()
+    {
+        GameObject go = new GameObject("LineRenderer");
+        go.transform.SetParent(transform);
+        LineRenderer lineRenderer = go.AddComponent<LineRenderer>();
+        lineRenderer.positionCount = 1;
+        lineRenderer.startWidth = .1f;
+        lineRenderer.endWidth = .1f;
+        lineRenderers.Add(lineRenderer);
+        return lineRenderer;
+    }
+
+    private void Start()
+    {
+        // trailRecorded = Grid.calculatedTrail;
+        // lastTargetPoint = trailRecorded.position;
     }
 
     private void OnPartAddedToGrid()
     {
+        foreach (LineRenderer lineRenderer in lineRenderers)
+        {
+            Destroy(lineRenderer.gameObject);
+        }
+        lineRenderers.Clear();
+        CreateLineRendererChild();
         trailRecorded = Grid.calculatedTrail;
-        Debug.Log(trailRecorded.children.Count);
-        RunNode(trailRecorded);
+        if (trailRecorded != null)
+        {
+            RunNode(trailRecorded, lineRenderers[0]);
+        }
     }
 
     void Update()
@@ -47,27 +70,39 @@ public class Root : MonoBehaviour
         // }
     }
 
-    private void RunNode(Node node)
+    private void RunNode(Node node, LineRenderer lineRenderer)
     {
         switch (node.children.Count)
         {
             case 0:
+                DrawTrail(lineRenderer, node.position);
                 return;
             case 1:
-                DrawTrail(node.position);
+                DrawTrail(lineRenderer, node.position);
+                RunNode(node.children[0], lineRenderer);
                 return;
             default:
-                foreach (Node nodeChild in node.children)
+                DrawTrail(lineRenderer, node.position);
+                for (int i = 0; i < node.children.Count; i++) 
                 {
-                    RunNode(nodeChild);
+                    if (i != 0)
+                    {
+                        LineRenderer newLineRenderer = CreateLineRendererChild();
+                        DrawTrail(newLineRenderer, node.position);
+                        RunNode(node.children[i], newLineRenderer);
+                    } 
+                    RunNode(node.children[i], lineRenderer);
                 }
-                break;
+                return;
         }
     }
 
-    private void DrawTrail(Vector3Int position)
+    private void DrawTrail(LineRenderer lineRenderer, Vector3Int position)
     {
-        target.SetPosition(currentPosition, position / 2);
+        Debug.Log(position);
+        Vector3 realWorldPosition = new Vector3(position.x / 2f, position.y / 2f, position.z / 2f);
+        lineRenderer.SetPosition(lineRenderer.positionCount - 1, realWorldPosition);
+        lineRenderer.positionCount++;
     }
 
     // void follow()
