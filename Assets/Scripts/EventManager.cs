@@ -17,4 +17,5 @@ public static class EventManager
     public static UnityEvent<float> UpdateIsoTimer = new();
     public static UnityEvent BlobDestroyed = new();
     public static UnityEvent FailAction = new();
+    public static UnityEvent PartAddedToGrid = new();
 }

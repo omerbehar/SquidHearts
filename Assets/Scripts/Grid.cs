@@ -7,7 +7,7 @@ public static class Grid
     public const float GridUnit = 0.5f;
     private static IGridElement[,,] grid = new IGridElement[14, 19, 14];
     private static Vector3Int rootIndex = new Vector3Int(7, 17, 7);
-
+    public static Node calculatedTrail;
 
 
     public static IGridElement CanMoveTo(Vector3Int position)
@@ -24,6 +24,8 @@ public static class Grid
         if (IsOutOfBound(partPosition))
             return;
         grid[partPosition.x, partPosition.y, partPosition.z] ??= part;
+        EventManager.PartAddedToGrid.Invoke();
+        AStar(new Vector3Int(7, 17, 7), partPosition);
     }
     private static bool IsOutOfBound(Vector3Int position)
     {
@@ -88,6 +90,8 @@ public static class Grid
                 }
             }
         }
+
+        calculatedTrail = root;
         return root;
     }
 
