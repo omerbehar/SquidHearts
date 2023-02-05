@@ -13,16 +13,18 @@ public class InputManager : MonoBehaviour
     private float timeFromKeyDown;
 
     private int moveCount;
-    private static InputManager Instance { get; set; }
+
+    [SerializeField] private GameManager gameManager;
+    //private static InputManager Instance { get; set; }
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // if (Instance != null)
+        // {
+        //     Destroy(gameObject);
+        //     return;
+        // }
+        // //Instance = this;
+        // DontDestroyOnLoad(gameObject);
     }
 
     void Update()
@@ -106,10 +108,10 @@ public class InputManager : MonoBehaviour
         switch (movementType)
         {
             case MovementType.Move:
-                EventManager.MovementInput.Invoke(direction);
+                EventManager.MovementInput.Invoke(direction, gameManager.povState);
                 break;
             case MovementType.Rotate:
-                EventManager.RotateClicked.Invoke(direction);
+                EventManager.RotateClicked.Invoke(direction, gameManager.povState);
                 break;
         }
         timeFromKeyDown = 0;

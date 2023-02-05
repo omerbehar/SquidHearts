@@ -15,7 +15,7 @@ public class BlobSpawner : MonoBehaviour
     [SerializeField] private bool isRandom;
     
     private Blob newBlobPrefab;
-    
+    [SerializeField] private GameManager gameManager;
     void Awake()
     {
         InitListeners();
@@ -39,15 +39,15 @@ public class BlobSpawner : MonoBehaviour
 
     private void InstantiateBlob()
     {
-        if (GameManager.Instance.blobAmount == 0)
+        if (gameManager.blobAmount == 0)
         {
             EventManager.GameLost.Invoke();
             return;
         }
-        GameManager.Instance.blobAmount--;
+        gameManager.blobAmount--;
         newBlobPrefab = isRandom ? GetRandomBlobPrefab() : GetLevelDesignBlobPrefab();
         Blob newBlob = Instantiate(newBlobPrefab, transform, false);
-        EventManager.BlobCreated.Invoke(newBlob);
+        EventManager.BlobCreated.Invoke(newBlob, gameManager.blobAmount);
     }
 
     private Blob GetRandomBlobPrefab() //random, can be changed to level design
