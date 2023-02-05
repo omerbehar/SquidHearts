@@ -12,6 +12,8 @@ public class BlobSpawner : MonoBehaviour
 
     private int levelDesignBlobIndex;
 
+    private float spawnBugWaitTime = 0.2f;
+    private float spawnBugTimer = 0;
     [SerializeField] private bool isRandom;
     
     private Blob newBlobPrefab;
@@ -39,6 +41,8 @@ public class BlobSpawner : MonoBehaviour
 
     private void InstantiateBlob()
     {
+        if (spawnBugTimer > 0) return;
+        spawnBugTimer = spawnBugWaitTime;
         if (gameManager.blobAmount == 0)
         {
             EventManager.GameLost.Invoke();
@@ -60,5 +64,9 @@ public class BlobSpawner : MonoBehaviour
         Blob blob = levelDesignBlobSequence[levelDesignBlobIndex];
         levelDesignBlobIndex++;
         return blob;
+    }
+    private void Update()
+    {
+        if(spawnBugTimer > 0 )spawnBugTimer -= Time.deltaTime;
     }
 }
