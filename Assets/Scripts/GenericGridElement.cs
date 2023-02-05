@@ -13,7 +13,7 @@ public class GenericGridElement :MonoBehaviour, IGridElement
     {
         foreach(Vector3Int part in RelativeParts)
         {
-            Grid.AddPartToGrid(part, this);
+            Grid.AddPartToGrid(part+GridPosition, this);
         }
     }
 }
