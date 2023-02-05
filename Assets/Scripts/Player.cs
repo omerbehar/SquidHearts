@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         EventManager.BlobCreated.AddListener(OnBlobCreated);
     }
 
-    private void OnBlobCreated(Blob newBlob)
+    private void OnBlobCreated(Blob newBlob, int blobAmount)
     {
         currentBlob = newBlob;
     }

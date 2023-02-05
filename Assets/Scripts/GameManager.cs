@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
     [SerializeField] private float tickTime = 1.37f;
     private float timeFromLastTick;
     [SerializeField] public PovState povState = PovState.Front;
@@ -20,17 +20,15 @@ public class GameManager : MonoBehaviour
     private bool wasCageCreated;
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
         InitEventListeners();
         cage.isMovable = false;
         Grid.AddPartToGrid(cage.GridPosition, cage);
         RestartGameInitData();
+    }
+
+    private void Start()
+    {
+        EventManager.UpdateIsoTimer.Invoke(isoStateTime);
     }
 
     private void RestartGameInitData()
@@ -47,14 +45,13 @@ public class GameManager : MonoBehaviour
 
     private void IsoStateTimer()
     {
-        Debug.Log(povState);
         if (povState == PovState.Iso)
         {
             isoStateTime -= Time.deltaTime;
             timeFromLastIsoStateTimeUpdate += Time.deltaTime;
             if (timeFromLastIsoStateTimeUpdate > isoStateTimeUpdateResolution)
             {
-                EventManager.UpdateIsoTimer.Invoke();
+                EventManager.UpdateIsoTimer.Invoke(isoStateTime);
                 timeFromLastIsoStateTimeUpdate = 0;
             }
         }

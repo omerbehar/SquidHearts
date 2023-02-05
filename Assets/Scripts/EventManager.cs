@@ -9,12 +9,12 @@ public static class EventManager
     public static UnityEvent PovChanged = new();
     public static UnityEvent ThreeDimensionsViewActivated = new();
     public static UnityEvent NextBlobRequested = new();
-    public static UnityEvent<Blob> BlobCreated = new();
+    public static UnityEvent<Blob, int> BlobCreated = new();
     public static UnityEvent ReachEscapeButton = new();
     public static UnityEvent ConnectWaterPool = new();
     public static UnityEvent GameLost = new();
     public static UnityEvent RestartGame = new();
-    public static UnityEvent UpdateIsoTimer = new();
+    public static UnityEvent<float> UpdateIsoTimer = new();
     public static UnityEvent BlobDestroyed = new();
     public static UnityEvent FailAction = new();
 }
