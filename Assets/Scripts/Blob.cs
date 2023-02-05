@@ -148,6 +148,7 @@ public class Blob : Connectable
     }
     private void DestroyBlob ()
     {
+        EventManager.NextBlobRequested.Invoke();
         EventManager.BlobDestroyed.Invoke();
         Destroy(gameObject);
     }
