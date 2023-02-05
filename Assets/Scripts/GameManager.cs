@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera, isoCamera;
     [SerializeField] private GameObject zCameraWall, xCameraWall;
-    [SerializeField] private Blob cage;
+    //[SerializeField] private Blob cage;
     [SerializeField] public int blobAmount = 15;
     [SerializeField] public int waterPoolBlobBonus = 5;
     [SerializeField] public float isoStateTime = 15;
@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         InitEventListeners();
-        cage.isMovable = false;
-        Grid.AddPartToGrid(cage.GridPosition, cage);
         RestartGameInitData();
     }
 
@@ -95,7 +93,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         blobAmount = restartLevelBlobAmount;
         Grid.ClearGrid();
-        Grid.AddPartToGrid(cage.GridPosition, cage);
     }
 
     private void OnPovChanged()

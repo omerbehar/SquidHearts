@@ -25,7 +25,7 @@ public static class Grid
             return;
         grid[partPosition.x, partPosition.y, partPosition.z] ??= part;
         EventManager.PartAddedToGrid.Invoke();
-        AStar(new Vector3Int(7, 17, 7), partPosition);
+        //AStar(new Vector3Int(7, 17, 7), partPosition);
     }
     private static bool IsOutOfBound(Vector3Int position)
     {
