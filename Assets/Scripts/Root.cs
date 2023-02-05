@@ -9,12 +9,10 @@ public class Root : MonoBehaviour
 {
 
     private Node trailRecorded;
-    //public Transform targetP;
-    public Vector3 lastTargetPoint;
-    //public Vector3 target_Offset;
+
     [SerializeField] private Vector3 offset;
-    const int MaxPositions = 10000;
-    private List<LineRenderer> lineRenderers = new List<LineRenderer>();
+
+    private List<LineRenderer> lineRenderers = new();
     private void Awake()
     {
         EventManager.PartAddedToGrid.AddListener(OnPartAddedToGrid);
@@ -32,11 +30,6 @@ public class Root : MonoBehaviour
         return lineRenderer;
     }
 
-    private void Start()
-    {
-        // trailRecorded = Grid.calculatedTrail;
-        // lastTargetPoint = trailRecorded.position;
-    }
 
     private void OnPartAddedToGrid()
     {
@@ -52,24 +45,7 @@ public class Root : MonoBehaviour
             RunNode(trailRecorded, lineRenderers[0]);
         }
     }
-
-    void Update()
-    {
-        // int numberOfPositions = target.GetPositions(new NativeArray<Vector3>());
-        //
-        // foreach (Node child in trailRecorded.children)
-        // {
-        //     
-        // }
-        // speed += 0.25f * Time.deltaTime;
-        // if (currentPosition < this.trailRecorded.Length)
-        // {
-        //     if (lastTargetPoint == null)
-        //         lastTargetPoint = trailRecorded[currentPosition];
-        //     follow();
-        // }
-    }
-
+    
     private void RunNode(Node node, LineRenderer lineRenderer)
     {
         switch (node.children.Count)
@@ -104,17 +80,5 @@ public class Root : MonoBehaviour
         lineRenderer.SetPosition(lineRenderer.positionCount - 1, realWorldPosition);
         lineRenderer.positionCount++;
     }
-
-    // void follow()
-    // {
-    //     transform.forward = Vector3.RotateTowards(transform.forward, lastTargetPoint - transform.position, speed * Time.deltaTime, 4.0f);
-    //  
-    //     transform.position = Vector3.MoveTowards(transform.position, lastTargetPoint, speed * Time.deltaTime);
-    //     if (transform.position == lastTargetPoint)
-    //     {
-    //         currentPosition++;
-    //         lastTargetPoint = trailRecorded[currentPosition];
-    //     }
-    // }
     
 }

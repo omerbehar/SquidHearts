@@ -24,8 +24,11 @@ public static class Grid
         if (IsOutOfBound(partPosition))
             return;
         grid[partPosition.x, partPosition.y, partPosition.z] ??= part;
-        EventManager.PartAddedToGrid.Invoke();
-        //AStar(new Vector3Int(7, 17, 7), partPosition);
+        if (part.GetType() == typeof(Blob))
+        {
+            //AStar(new Vector3Int(7, 16, 7), partPosition);
+            EventManager.PartAddedToGrid.Invoke();
+        }
     }
     private static bool IsOutOfBound(Vector3Int position)
     {
@@ -55,6 +58,7 @@ public static class Grid
         bool findPath = false;
         while (!findPath)
         {
+            Debug.Log(open[0]);
             Node current = open.OrderBy(n => n.Cost).ToList()[0];
             open.Remove(current);
             closed.Add(current);
