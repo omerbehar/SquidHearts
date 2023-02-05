@@ -79,6 +79,7 @@ public class MainClass: MonoBehaviour
 
     private void PrintTree(Node root, string line)
     {
+        EventManager.PartAddedToGrid.Invoke();
         print("Path" + line + " Position: " + root.position);
         for (int i = 0; i < root.children.Count; i++)
         {

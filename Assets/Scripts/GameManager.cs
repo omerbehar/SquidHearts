@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public PovState povState = PovState.Front;
     [SerializeField] private Camera zCamera, xCamera, isoCamera;
     [SerializeField] private GameObject zCameraWall, xCameraWall;
-    //[SerializeField] private Blob cage;
+
     [SerializeField] public int blobAmount = 15;
     [SerializeField] public int waterPoolBlobBonus = 5;
     [SerializeField] public float isoStateTime = 15;
