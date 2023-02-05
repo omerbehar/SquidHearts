@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
         currentBlob = newBlob;
     }
 
-    private void OnRotateClicked(Direction direction)
+    private void OnRotateClicked(Direction direction, PovState povState)
     {
-        switch (GameManager.Instance.povState)
+        switch (povState)
         {
             case PovState.Front:
                 switch (direction)
@@ -50,9 +50,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnMovementClicked(Direction direction)
+    private void OnMovementClicked(Direction direction, PovState povState)
     {
-        switch (GameManager.Instance.povState)
+        switch (povState)
         {
             case PovState.Front:
                 switch (direction)

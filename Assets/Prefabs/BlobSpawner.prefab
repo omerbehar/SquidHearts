@@ -52,3 +52,4 @@ MonoBehaviour:
   - {fileID: 799130299212338106, guid: 2ca1b084c5e854244bb3e0156fd62cbd, type: 3}
   levelDesignBlobSequence: []
   isRandom: 1
+  gameManager: {fileID: 0}
